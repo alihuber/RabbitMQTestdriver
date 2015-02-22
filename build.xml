@@ -70,4 +70,14 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <target name="-post-jar">
+        <jar jarfile="dist/Dist.jar">
+            <zipfileset src="${dist.jar}" excludes="META-INF/*" />
+            <zipfileset src="dist/lib/rabbitmq-client.jar" excludes="META-INF/*" />
+            <zipfileset src="dist/lib/beansbinding-1.2.1.jar" excludes="META-INF/*" />
+            <manifest>
+                <attribute name="Main-Class" value="org.rabbitmqtestdriver.Main"/>
+            </manifest>
+        </jar>
+    </target>
 </project>

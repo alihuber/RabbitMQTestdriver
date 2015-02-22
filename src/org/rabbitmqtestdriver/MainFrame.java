@@ -1,21 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.rabbitmqtestdriver;
 
-/**
- *
- * @author ali
- */
+import java.awt.Color;
+
 public class MainFrame extends javax.swing.JFrame {
+
+    private final Settings settings;
 
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
+        this.settings = new Settings(null, null, null, null);
         initComponents();
+    }
+
+    public Settings getSettings() {
+        return settings;
     }
 
     /**
@@ -26,9 +26,10 @@ public class MainFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         mainTabPane = new javax.swing.JTabbedPane();
-        generalPanel = new javax.swing.JPanel();
+        settingsPanel = new javax.swing.JPanel();
         ipAddressLabel = new javax.swing.JLabel();
         ipAddressTextField = new javax.swing.JTextField();
         vHostNameTextField = new javax.swing.JTextField();
@@ -36,16 +37,18 @@ public class MainFrame extends javax.swing.JFrame {
         usernameLabel = new javax.swing.JLabel();
         usernameTextField = new javax.swing.JTextField();
         passwordLabel = new javax.swing.JLabel();
-        passwordTextField = new javax.swing.JTextField();
-        generalSaveButton = new javax.swing.JButton();
+        passwordTextField = new javax.swing.JPasswordField();
         smokeTestPanel = new javax.swing.JPanel();
         smokeTestQueueNameLabel = new javax.swing.JLabel();
         smokeTestQueueNameTextField = new javax.swing.JTextField();
         smokeTestMessageTextLabel = new javax.swing.JLabel();
         smokeTestMessageTextTextField = new javax.swing.JTextField();
         smokeTestSendButton = new javax.swing.JButton();
+        statusPanel = new javax.swing.JPanel();
+        statusLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         mainTabPane.setName("SmokeTestTab"); // NOI18N
 
@@ -53,69 +56,77 @@ public class MainFrame extends javax.swing.JFrame {
 
         ipAddressTextField.setName(""); // NOI18N
 
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${settings.brokerIPAddress}"), ipAddressTextField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${settings.vHostName}"), vHostNameTextField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         vHostNameLabel.setText("VHost Name");
 
         usernameLabel.setText("Username");
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${settings.username}"), usernameTextField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         passwordLabel.setText("Password");
 
-        generalSaveButton.setText("Save");
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${settings.password}"), passwordTextField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
-        javax.swing.GroupLayout generalPanelLayout = new javax.swing.GroupLayout(generalPanel);
-        generalPanel.setLayout(generalPanelLayout);
-        generalPanelLayout.setHorizontalGroup(
-            generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(generalPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout settingsPanelLayout = new javax.swing.GroupLayout(settingsPanel);
+        settingsPanel.setLayout(settingsPanelLayout);
+        settingsPanelLayout.setHorizontalGroup(
+            settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(settingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(generalPanelLayout.createSequentialGroup()
-                        .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ipAddressLabel)
-                            .addComponent(vHostNameLabel)
-                            .addComponent(usernameLabel)
-                            .addComponent(passwordLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(passwordTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
-                            .addComponent(usernameTextField)
-                            .addComponent(vHostNameTextField)
-                            .addComponent(ipAddressTextField, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, generalPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(generalSaveButton)))
+                .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ipAddressLabel)
+                    .addComponent(vHostNameLabel)
+                    .addComponent(usernameLabel)
+                    .addComponent(passwordLabel))
+                .addGap(18, 18, 18)
+                .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(usernameTextField)
+                    .addComponent(vHostNameTextField)
+                    .addComponent(ipAddressTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(passwordTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        generalPanelLayout.setVerticalGroup(
-            generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(generalPanelLayout.createSequentialGroup()
+        settingsPanelLayout.setVerticalGroup(
+            settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(settingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ipAddressLabel)
                     .addComponent(ipAddressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(vHostNameLabel)
                     .addComponent(vHostNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(usernameLabel)
                     .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(passwordLabel)
                     .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
-                .addComponent(generalSaveButton)
-                .addContainerGap())
+                .addContainerGap(179, Short.MAX_VALUE))
         );
 
-        mainTabPane.addTab("General", generalPanel);
+        mainTabPane.addTab("Settings", settingsPanel);
 
         smokeTestQueueNameLabel.setText("Queue Name");
 
         smokeTestMessageTextLabel.setText("Message Text");
 
         smokeTestSendButton.setText("Send");
+        smokeTestSendButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                smokeTestSendButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout smokeTestPanelLayout = new javax.swing.GroupLayout(smokeTestPanel);
         smokeTestPanel.setLayout(smokeTestPanelLayout);
@@ -148,45 +159,97 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(smokeTestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(smokeTestMessageTextLabel)
                     .addComponent(smokeTestMessageTextTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
                 .addComponent(smokeTestSendButton)
                 .addContainerGap())
         );
 
         mainTabPane.addTab("Smoke Test", smokeTestPanel);
 
+        javax.swing.GroupLayout statusPanelLayout = new javax.swing.GroupLayout(statusPanel);
+        statusPanel.setLayout(statusPanelLayout);
+        statusPanelLayout.setHorizontalGroup(
+            statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(statusPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(statusLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        statusPanelLayout.setVerticalGroup(
+            statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(statusLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(mainTabPane, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(statusPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainTabPane, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(mainTabPane, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(statusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
+
+        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void smokeTestSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_smokeTestSendButtonActionPerformed
+        if("Send".equals(evt.getActionCommand())) {
+            String queueName = smokeTestQueueNameTextField.getText();
+            String message = smokeTestMessageTextTextField.getText();
+            try {
+                SmokeTest smokeTest = new SmokeTest(this.settings.getBrokerIPAddress(),
+                        this.settings.getvHostName(),
+                        this.settings.getUsername(),
+                        this.settings.getPassword(),
+                        queueName, message);
+                String returnMessage = smokeTest.sendMessage();
+                this.statusLabel.setText(returnMessage);
+            } catch (Exception ex) {
+                this.statusLabel.setForeground(Color.red);
+                String errorMessage = ex.getMessage();
+                String truncatedError = 
+                        errorMessage.substring(0, Math.min(errorMessage.length(), 50));
+                if(errorMessage.length() > 50) {
+                     this.statusLabel.setText(truncatedError + "...");
+                } else {
+                    this.statusLabel.setText(errorMessage);
+                }
+            }
+        }
+    }//GEN-LAST:event_smokeTestSendButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel generalPanel;
-    private javax.swing.JButton generalSaveButton;
     private javax.swing.JLabel ipAddressLabel;
     private javax.swing.JTextField ipAddressTextField;
     private javax.swing.JTabbedPane mainTabPane;
     private javax.swing.JLabel passwordLabel;
-    private javax.swing.JTextField passwordTextField;
+    private javax.swing.JPasswordField passwordTextField;
+    private javax.swing.JPanel settingsPanel;
     private javax.swing.JLabel smokeTestMessageTextLabel;
     private javax.swing.JTextField smokeTestMessageTextTextField;
     private javax.swing.JPanel smokeTestPanel;
     private javax.swing.JLabel smokeTestQueueNameLabel;
     private javax.swing.JTextField smokeTestQueueNameTextField;
     private javax.swing.JButton smokeTestSendButton;
+    private javax.swing.JLabel statusLabel;
+    private javax.swing.JPanel statusPanel;
     private javax.swing.JLabel usernameLabel;
     private javax.swing.JTextField usernameTextField;
     private javax.swing.JLabel vHostNameLabel;
     private javax.swing.JTextField vHostNameTextField;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,15 +8,10 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-//     SmokeTest smokeTest = new SmokeTest("192.168.0.12", "test", "ubuntu",
-//            "ubuntu", "test", "This is a test");
-//     MainFrame mf = new MainFrame();
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                MainFrame mf = new MainFrame();
-                centreWindow(mf);
-                mf.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            MainFrame mf = new MainFrame();
+            centreWindow(mf);
+            mf.setVisible(true);
         });
     }
 

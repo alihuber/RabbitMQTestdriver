@@ -6,8 +6,12 @@ import java.awt.Window;
 import java.io.IOException;
 
 public class Main {
+    
+    public static BrokerConnection brokerConnection;
 
     public static void main(String[] args) throws IOException {
+        Main.brokerConnection = null;
+        
         java.awt.EventQueue.invokeLater(() -> {
             MainFrame mf = new MainFrame();
             centreWindow(mf);

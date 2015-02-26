@@ -3,7 +3,6 @@ package org.rabbitmqtestdriver;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import com.sun.xml.internal.bind.v2.TODO;
 
 public class BrokerConnection {
 
@@ -58,6 +57,9 @@ public class BrokerConnection {
 
     public String sendSingleSmokeTestMessage(String queueName,
             String message) throws Exception {
+        if(queueName == null || queueName.equals("")) {
+            throw new IllegalArgumentException("No queue name set");
+        }
         Channel channel = openConnection(queueName);
         try {
             channel.basicPublish("", queueName, null, message.getBytes());
@@ -73,8 +75,26 @@ public class BrokerConnection {
         return ("Sent '" + message + "'");
     }
 
-    public boolean sendBulkSmokeTestMessages(String queueName, int amount) {
-        // TODO
+    public boolean sendBulkSmokeTestMessages(String queueName, int amount) throws Exception {
+        if(queueName == null || queueName.equals("")) {
+            throw new IllegalArgumentException("No queue name set");
+        }
+        Channel channel = openConnection(queueName);
+        for (int i = 0; i < amount; i++) {
+            RandomString random = new RandomString(20);
+            String message = random.nextString() + "_" + String.valueOf(i);
+            try {
+                channel.basicPublish("", queueName, null, message.getBytes());
+            } catch (Exception e) {
+                if (e.getMessage() != null) {
+                    throw e;
+                }
+            }
+        }
+        if (channel != null) {
+            channel.close();
+            connection.close();
+        }
         return true;
     }
 
@@ -88,7 +108,9 @@ public class BrokerConnection {
         try {
             channel = connection.createChannel();
         } catch (Exception e) {
-            throw e;
+            if (e.getMessage() != null) {
+                throw e;
+            }
         }
         try {
             channel.queueDeclare(queueName, false, false, false, null);

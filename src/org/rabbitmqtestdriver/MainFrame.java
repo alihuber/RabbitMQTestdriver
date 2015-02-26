@@ -1,6 +1,8 @@
 package org.rabbitmqtestdriver;
 
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainFrame extends javax.swing.JFrame {
 
@@ -134,7 +136,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        smokeTestFloodSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10000, 1));
+        smokeTestFloodSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 1000, 1));
 
         smokeTestSingleLabel.setText("Send single message");
 
@@ -229,50 +231,61 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void smokeTestSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_smokeTestSendButtonActionPerformed
-        if("Send".equals(evt.getActionCommand())) {
+        if ("Send".equals(evt.getActionCommand())) {
             String queueName = smokeTestQueueNameTextField.getText();
             String message = smokeTestMessageTextTextField.getText();
             try {
-                SmokeTest smokeTest = new SmokeTest(Main.brokerConnection, 
+                SmokeTest smokeTest = new SmokeTest(Main.brokerConnection,
                         queueName, message);
                 String returnMessage = smokeTest.sendSingleMessage();
                 this.statusLabel.setText(returnMessage);
             } catch (Exception ex) {
-                this.statusLabel.setForeground(Color.red);
-                String errorMessage = ex.getMessage();
-                String truncatedError = 
-                        errorMessage.substring(0, Math.min(errorMessage.length(), 50));
-                if(errorMessage.length() > 50) {
-                     this.statusLabel.setText(truncatedError + "...");
-                } else {
-                    this.statusLabel.setText(errorMessage);
-                }
+                setErrorMessage(ex.getMessage());
             }
         }
     }//GEN-LAST:event_smokeTestSendButtonActionPerformed
 
     private void saveSettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveSettingsButtonActionPerformed
-        if(evt.getActionCommand().equals("Save")) {
+        if (evt.getActionCommand().equals("Save")) {
             String hostname = this.ipAddressTextField.getText();
             String vhostName = this.vHostNameTextField.getText();
             String username = this.usernameTextField.getText();
             char[] password;
             password = this.passwordTextField.getPassword();
             Main.brokerConnection = new BrokerConnection(hostname, vhostName, username, password);
+            this.statusLabel.setForeground(Color.black);
             this.statusLabel.setText("Set broker connection");
         }
     }//GEN-LAST:event_saveSettingsButtonActionPerformed
 
     private void smokeTestFloodButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_smokeTestFloodButtonActionPerformed
-        if(evt.getActionCommand().equals("Flood")) {
+        if (evt.getActionCommand().equals("Flood")) {
             String queueName = this.smokeTestQueueNameTextField.getText();
             int amount;
             amount = (int) this.smokeTestFloodSpinner.getValue();
             SmokeTest smokeTest = new SmokeTest(Main.brokerConnection, queueName);
-            boolean bulkReturn = smokeTest.sendBulkMessages(amount);
+            try {
+                boolean bulkReturn = smokeTest.sendBulkMessages(amount);
+                if(bulkReturn) {
+                    this.statusLabel.setForeground(Color.black);
+                    this.statusLabel.setText("Done sending messages");
+                }
+            } catch (Exception ex) {
+                setErrorMessage(ex.getMessage());
+            }
         }
     }//GEN-LAST:event_smokeTestFloodButtonActionPerformed
 
+    private void setErrorMessage(String errorMessage) {
+        this.statusLabel.setForeground(Color.red);
+        String truncatedError;
+        truncatedError = errorMessage.substring(0, Math.min(errorMessage.length(), 50));
+        if (errorMessage.length() > 50) {
+            this.statusLabel.setText(truncatedError + "...");
+        } else {
+            this.statusLabel.setText(errorMessage);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ipAddressLabel;

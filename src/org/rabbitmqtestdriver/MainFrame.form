@@ -77,7 +77,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="usernameTextField" max="32767" attributes="0"/>
                                   <Component id="vHostNameTextField" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="passwordTextField" alignment="1" pref="231" max="32767" attributes="0"/>
+                                  <Component id="passwordTextField" alignment="1" pref="348" max="32767" attributes="0"/>
                                   <Component id="ipAddressTextField" alignment="1" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -197,7 +197,7 @@
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="smokeTestSingleLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="68" max="32767" attributes="0"/>
+                              <EmptySpace pref="185" max="32767" attributes="0"/>
                               <Component id="smokeTestFloodLabel" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -281,6 +281,95 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Send # random messages"/>
               </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="topicsPanel">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Topics">
+                <Property name="tabTitle" type="java.lang.String" value="Topics"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="topicsDebugInfoTextField" max="32767" attributes="0"/>
+                          <Component id="topicsDebugWarningTextField" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="topicsDebugInfoLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="topicsDebugWarningLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="topicsLoggerInfoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="279" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="topicsLoggerInfoTextField" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="topicsSendButton" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Component id="topicsDebugInfoLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="topicsDebugInfoTextField" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="topicsDebugWarningLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="topicsDebugWarningTextField" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="topicsLoggerInfoLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="topicsLoggerInfoTextField" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="106" max="32767" attributes="0"/>
+                      <Component id="topicsSendButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JTextField" name="topicsDebugInfoTextField">
+            </Component>
+            <Component class="javax.swing.JLabel" name="topicsDebugInfoLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Message for log.debug.info"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="topicsDebugWarningLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Message for log.debug.warning"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="topicsDebugWarningTextField">
+            </Component>
+            <Component class="javax.swing.JLabel" name="topicsLoggerInfoLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Message for log.logger.info"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="topicsLoggerInfoTextField">
+            </Component>
+            <Component class="javax.swing.JButton" name="topicsSendButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Send"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="topicsSendButtonActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

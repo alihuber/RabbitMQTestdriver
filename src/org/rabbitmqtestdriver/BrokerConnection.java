@@ -57,10 +57,10 @@ public class BrokerConnection {
 
     public String sendSingleSmokeTestMessage(String queueName,
             String message) throws Exception {
-        if(queueName == null || queueName.equals("")) {
+        if (queueName == null || queueName.equals("")) {
             throw new IllegalArgumentException("No queue name set");
         }
-        Channel channel = openConnection(queueName);
+        Channel channel = openSmokeTestConnection(queueName);
         try {
             channel.basicPublish("", queueName, null, message.getBytes());
         } catch (Exception e) {
@@ -76,10 +76,10 @@ public class BrokerConnection {
     }
 
     public boolean sendBulkSmokeTestMessages(String queueName, int amount) throws Exception {
-        if(queueName == null || queueName.equals("")) {
+        if (queueName == null || queueName.equals("")) {
             throw new IllegalArgumentException("No queue name set");
         }
-        Channel channel = openConnection(queueName);
+        Channel channel = openSmokeTestConnection(queueName);
         for (int i = 0; i < amount; i++) {
             RandomString random = new RandomString(20);
             String message = random.nextString() + "_" + String.valueOf(i);
@@ -98,7 +98,85 @@ public class BrokerConnection {
         return true;
     }
 
-    private Channel openConnection(String queueName) throws Exception {
+    public String sendTopicMessages(String debugInfoMessage,
+            String debugWarningMessage, String loggerInfoMessage) throws Exception {
+        Channel channel = null;
+        try {
+            channel = openTopicConnection();
+        } catch (Exception e) {
+            if (e.getMessage() != null) {
+                throw e;
+            }
+        }
+        if (!debugInfoMessage.isEmpty()) {
+            try {
+                channel.basicPublish("log", "debug.info", null, debugInfoMessage.getBytes());
+            } catch (Exception e) {
+                if (e.getMessage() != null) {
+                    throw e;
+                }
+            }
+        }
+        if (!debugWarningMessage.isEmpty()) {
+            try {
+                channel.basicPublish("log", "debug.warning", null, debugWarningMessage.getBytes());
+            } catch (Exception e) {
+                if (e.getMessage() != null) {
+                    throw e;
+                }
+            }
+        }
+        if (!loggerInfoMessage.isEmpty()) {
+            try {
+                channel.basicPublish("log", "logger.info", null, loggerInfoMessage.getBytes());
+            } catch (Exception e) {
+                if (e.getMessage() != null) {
+                    throw e;
+                }
+            }
+        }
+        return "Sent topic Messages";
+    }
+
+    private Channel openTopicConnection() throws Exception {
+        Channel channel = null;
+        try {
+            channel = createChannel();
+        } catch (Exception e) {
+            if (e.getMessage() != null) {
+                throw e;
+            }
+        }
+        try {
+            channel.exchangeDeclare("log", "topic");
+        } catch (Exception e) {
+            if (e.getMessage() != null) {
+                throw e;
+            }
+        }
+        return channel;
+    }
+
+    private Channel openSmokeTestConnection(String queueName) throws Exception {
+        Channel channel = null;
+        try {
+            channel = createChannel();
+        } catch (Exception e) {
+            if (e.getMessage() != null) {
+                throw e;
+            }
+        }
+        try {
+            channel.queueDeclare(queueName, false, false, false, null);
+        } catch (Exception e) {
+            if (e.getMessage() != null) {
+                throw e;
+            }
+        }
+        return channel;
+    }
+
+    private Channel createChannel() throws Exception {
         try {
             connection = factory.newConnection();
         } catch (Exception e) {
@@ -107,13 +185,6 @@ public class BrokerConnection {
         Channel channel = null;
         try {
             channel = connection.createChannel();
-        } catch (Exception e) {
-            if (e.getMessage() != null) {
-                throw e;
-            }
-        }
-        try {
-            channel.queueDeclare(queueName, false, false, false, null);
         } catch (Exception e) {
             if (e.getMessage() != null) {
                 throw e;

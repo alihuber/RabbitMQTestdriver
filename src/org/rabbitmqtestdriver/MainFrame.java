@@ -1,8 +1,6 @@
 package org.rabbitmqtestdriver;
 
 import java.awt.Color;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class MainFrame extends javax.swing.JFrame {
 
@@ -136,7 +134,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        smokeTestFloodSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 1000, 1));
+        smokeTestFloodSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10000, 1));
 
         smokeTestSingleLabel.setText("Send single message");
 

@@ -4,26 +4,24 @@ package org.rabbitmqtestdriver;
 public class Topic {
     
     private final BrokerConnection connection;
-    private String debugInfoMessage;
-    private String debugWarningMessage;
-    private String loggerInfoMessage;
+    private String topicNamespace;
+    private String topicMessage;
 
-    public Topic(BrokerConnection connection, String debugInfoMessage,
-            String debugWarningMessage, String loggerInfoMessage) {
+    public Topic(BrokerConnection connection, String topicNamespace,
+            String topicMessage) {
         if(connection == null) {
             throw new IllegalArgumentException("No connection set");
         }
         this.connection = connection;
-        this.debugInfoMessage = debugInfoMessage;
-        this.debugWarningMessage = debugWarningMessage;
-        this.loggerInfoMessage = loggerInfoMessage;
+        this.topicNamespace = topicNamespace;
+        this.topicMessage = topicMessage;
     }
     
-    public String sendTopicMessages() throws Exception {
+    public String sendTopicMessage() throws Exception {
         String returnMessage = null;
         try {
-            returnMessage = connection.sendTopicMessages(this.debugInfoMessage,
-                    this.debugWarningMessage, this.loggerInfoMessage);
+            returnMessage = connection.sendTopicMessage(this.topicNamespace,
+                    this.topicMessage);
         } catch (Exception e) {
             if (e.getMessage() != null) {
                 throw e;

@@ -98,8 +98,8 @@ public class BrokerConnection {
         return true;
     }
 
-    public String sendTopicMessages(String debugInfoMessage,
-            String debugWarningMessage, String loggerInfoMessage) throws Exception {
+    public String sendTopicMessage(String topicNamespace,
+            String topicMessage) throws Exception {
         Channel channel = null;
         try {
             channel = openTopicConnection();
@@ -108,34 +108,18 @@ public class BrokerConnection {
                 throw e;
             }
         }
-        if (!debugInfoMessage.isEmpty()) {
+        if(topicNamespace == null || topicNamespace.isEmpty()) {
+            throw new IllegalArgumentException("Topic namespace is empty");
+        } else {
             try {
-                channel.basicPublish("log", "debug.info", null, debugInfoMessage.getBytes());
+                channel.basicPublish("log", topicNamespace, null, topicMessage.getBytes());
             } catch (Exception e) {
                 if (e.getMessage() != null) {
                     throw e;
                 }
             }
         }
-        if (!debugWarningMessage.isEmpty()) {
-            try {
-                channel.basicPublish("log", "debug.warning", null, debugWarningMessage.getBytes());
-            } catch (Exception e) {
-                if (e.getMessage() != null) {
-                    throw e;
-                }
-            }
-        }
-        if (!loggerInfoMessage.isEmpty()) {
-            try {
-                channel.basicPublish("log", "logger.info", null, loggerInfoMessage.getBytes());
-            } catch (Exception e) {
-                if (e.getMessage() != null) {
-                    throw e;
-                }
-            }
-        }
-        return "Sent topic Messages";
+        return "Sent topic message";
     }
 
     private Channel openTopicConnection() throws Exception {

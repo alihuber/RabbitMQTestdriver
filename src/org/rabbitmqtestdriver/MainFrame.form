@@ -375,7 +375,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="topicInfoLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&lt;html&gt;Messages can be in the following topic namespaces:&lt;br&gt;debug.info&lt;br&gt;debug.warning&lt;br&gt;logger.info&lt;br&gt;and will be inserted into topic &apos;log&apos;.&lt;br&gt; All messages sent to other topics will be lost. &lt;/html&gt;"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;Messages can be in the following namespaces:&lt;br&gt;debug.*&lt;br&gt;*.info&lt;br&gt;logger.#&lt;br&gt;and will be inserted into topic &apos;log&apos;.&lt;br&gt;Messages for other namespaces will be lost.&lt;/html&gt;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="topicSendButton">

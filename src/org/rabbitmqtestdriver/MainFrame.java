@@ -208,7 +208,7 @@ public class MainFrame extends javax.swing.JFrame {
         topicsPanel.setBounds(new java.awt.Rectangle(0, 0, 361, 399));
         topicsPanel.setPreferredSize(new java.awt.Dimension(361, 399));
 
-        topicInfoLabel.setText("<html>Messages can be in the following topic namespaces:<br>debug.info<br>debug.warning<br>logger.info<br>and will be inserted into topic 'log'.<br> All messages sent to other topics will be lost. </html>");
+        topicInfoLabel.setText("<html>Messages can be in the following namespaces:<br>debug.*<br>*.info<br>logger.#<br>and will be inserted into topic 'log'.<br>Messages for other namespaces will be lost.</html>");
 
         topicSendButton.setText("Send");
         topicSendButton.addActionListener(new java.awt.event.ActionListener() {

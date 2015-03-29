@@ -94,7 +94,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="usernameTextField" max="32767" attributes="0"/>
                                   <Component id="vHostNameTextField" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="passwordTextField" alignment="1" pref="200" max="32767" attributes="0"/>
+                                  <Component id="passwordTextField" alignment="1" pref="202" max="32767" attributes="0"/>
                                   <Component id="ipAddressTextField" alignment="1" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -140,7 +140,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="ipAddressLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Broker IP Address"/>
+                <Property name="text" type="java.lang.String" value="Broker IP address"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="ipAddressTextField">
@@ -152,7 +152,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="vHostNameLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="VHost Name"/>
+                <Property name="text" type="java.lang.String" value="VHost name"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="usernameLabel">
@@ -214,8 +214,12 @@
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="smokeTestSingleLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="37" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="smokeTestFloodLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="smokeTestHintLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -226,6 +230,8 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="smokeTestHintLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="smokeTestQueueNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="smokeTestQueueNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -235,7 +241,7 @@
                           <Component id="smokeTestMessageTextLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="smokeTestMessageTextTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="228" max="32767" attributes="0"/>
+                      <EmptySpace pref="134" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="smokeTestFloodLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="smokeTestSingleLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -254,14 +260,14 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="smokeTestQueueNameLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Queue Name"/>
+                <Property name="text" type="java.lang.String" value="Queue name"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="smokeTestQueueNameTextField">
             </Component>
             <Component class="javax.swing.JLabel" name="smokeTestMessageTextLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Message Text"/>
+                <Property name="text" type="java.lang.String" value="Message text"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="smokeTestMessageTextTextField">
@@ -297,6 +303,11 @@
             <Component class="javax.swing.JLabel" name="smokeTestFloodLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Send # random messages"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="smokeTestHintLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;Send messages to queues. Messages sent to the&lt;br&gt;&quot;default&quot; queue will show up in the Rails App.&lt;br&gt;All other queues and messages will be created&lt;br&gt; and delivered but not consumed.&lt;/html&gt;"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -375,7 +386,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="topicInfoLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&lt;html&gt;Messages can be in the following namespaces:&lt;br&gt;debug.*&lt;br&gt;*.info&lt;br&gt;logger.#&lt;br&gt;and will be inserted into topic &apos;log&apos;.&lt;br&gt;Messages for other namespaces will be lost.&lt;/html&gt;"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;Messages can be in the following namespaces:&lt;br&gt;debug.*&lt;br&gt;*.info&lt;br&gt;logger.#&lt;br&gt;and will be inserted into topic exchange &apos;log&apos;.&lt;br&gt;Messages for other namespaces will be lost.&lt;/html&gt;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="topicSendButton">
@@ -396,6 +407,99 @@
             <Component class="javax.swing.JLabel" name="topicMessageLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Topic message"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="workerPanel">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Worker">
+                <Property name="tabTitle" type="java.lang.String" value="Worker"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="workerMessageTextLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="workerMessageTextField" min="-2" pref="230" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="workerTimeSpinner" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="workerSendButton" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="workerTimeLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="workerInfoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="workerInfoLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="workerMessageTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="workerMessageTextLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="192" max="32767" attributes="0"/>
+                      <Component id="workerTimeLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="workerTimeSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="workerSendButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="workerMessageTextLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Message text"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="workerMessageTextField">
+            </Component>
+            <Component class="javax.swing.JButton" name="workerSendButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Send"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="workerSendButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JSpinner" name="workerTimeSpinner">
+              <Properties>
+                <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+                  <SpinnerModel initial="1" maximum="30" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="workerTimeLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Simulate # seconds of work"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="workerInfoLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;Messages sent here will be inserted into the &lt;br&gt;&apos;task_queue&apos; queue and be processed by 2 parallel&lt;br&gt;worker queues, both with prefetch(1)-setting.&lt;/html&gt;"/>
               </Properties>
             </Component>
           </SubComponents>

@@ -41,6 +41,7 @@ public class MainFrame extends javax.swing.JFrame {
         smokeTestFloodSpinner = new javax.swing.JSpinner();
         smokeTestSingleLabel = new javax.swing.JLabel();
         smokeTestFloodLabel = new javax.swing.JLabel();
+        smokeTestHintLabel = new javax.swing.JLabel();
         topicsPanel = new javax.swing.JPanel();
         topicNamespaceTextField = new javax.swing.JTextField();
         topicInfoLabel = new javax.swing.JLabel();
@@ -48,6 +49,13 @@ public class MainFrame extends javax.swing.JFrame {
         topicNamespaceLabel = new javax.swing.JLabel();
         topicMessageTextField = new javax.swing.JTextField();
         topicMessageLabel = new javax.swing.JLabel();
+        workerPanel = new javax.swing.JPanel();
+        workerMessageTextLabel = new javax.swing.JLabel();
+        workerMessageTextField = new javax.swing.JTextField();
+        workerSendButton = new javax.swing.JButton();
+        workerTimeSpinner = new javax.swing.JSpinner();
+        workerTimeLabel = new javax.swing.JLabel();
+        workerInfoLabel = new javax.swing.JLabel();
         statusPanel = new javax.swing.JPanel();
         statusLabel = new javax.swing.JLabel();
 
@@ -62,11 +70,11 @@ public class MainFrame extends javax.swing.JFrame {
         settingsPanel.setPreferredSize(new java.awt.Dimension(361, 399));
         settingsPanel.setSize(new java.awt.Dimension(361, 399));
 
-        ipAddressLabel.setText("Broker IP Address");
+        ipAddressLabel.setText("Broker IP address");
 
         ipAddressTextField.setName(""); // NOI18N
 
-        vHostNameLabel.setText("VHost Name");
+        vHostNameLabel.setText("VHost name");
 
         usernameLabel.setText("Username");
 
@@ -96,7 +104,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(usernameTextField)
                             .addComponent(vHostNameTextField)
-                            .addComponent(passwordTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(passwordTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
                             .addComponent(ipAddressTextField, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, settingsPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -129,9 +137,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         mainTabPane.addTab("Settings", settingsPanel);
 
-        smokeTestQueueNameLabel.setText("Queue Name");
+        smokeTestQueueNameLabel.setText("Queue name");
 
-        smokeTestMessageTextLabel.setText("Message Text");
+        smokeTestMessageTextLabel.setText("Message text");
 
         smokeTestSendButton.setText("Send");
         smokeTestSendButton.addActionListener(new java.awt.event.ActionListener() {
@@ -152,6 +160,8 @@ public class MainFrame extends javax.swing.JFrame {
         smokeTestSingleLabel.setText("Send single message");
 
         smokeTestFloodLabel.setText("Send # random messages");
+
+        smokeTestHintLabel.setText("<html>Send messages to queues. Messages sent to the<br>\"default\" queue will show up in the Rails App.<br>All other queues and messages will be created<br> and delivered but not consumed.</html>");
 
         javax.swing.GroupLayout smokeTestPanelLayout = new javax.swing.GroupLayout(smokeTestPanel);
         smokeTestPanel.setLayout(smokeTestPanelLayout);
@@ -176,14 +186,19 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(smokeTestQueueNameTextField)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, smokeTestPanelLayout.createSequentialGroup()
                         .addComponent(smokeTestSingleLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                        .addComponent(smokeTestFloodLabel)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(smokeTestFloodLabel))
+                    .addGroup(smokeTestPanelLayout.createSequentialGroup()
+                        .addComponent(smokeTestHintLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         smokeTestPanelLayout.setVerticalGroup(
             smokeTestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(smokeTestPanelLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(smokeTestHintLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addGroup(smokeTestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(smokeTestQueueNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(smokeTestQueueNameLabel))
@@ -191,7 +206,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(smokeTestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(smokeTestMessageTextLabel)
                     .addComponent(smokeTestMessageTextTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 228, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                 .addGroup(smokeTestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(smokeTestFloodLabel)
                     .addComponent(smokeTestSingleLabel))
@@ -208,7 +223,7 @@ public class MainFrame extends javax.swing.JFrame {
         topicsPanel.setBounds(new java.awt.Rectangle(0, 0, 361, 399));
         topicsPanel.setPreferredSize(new java.awt.Dimension(361, 399));
 
-        topicInfoLabel.setText("<html>Messages can be in the following namespaces:<br>debug.*<br>*.info<br>logger.#<br>and will be inserted into topic 'log'.<br>Messages for other namespaces will be lost.</html>");
+        topicInfoLabel.setText("<html>Messages can be in the following namespaces:<br>debug.*<br>*.info<br>logger.#<br>and will be inserted into topic exchange 'log'.<br>Messages for other namespaces will be lost.</html>");
 
         topicSendButton.setText("Send");
         topicSendButton.addActionListener(new java.awt.event.ActionListener() {
@@ -263,6 +278,62 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         mainTabPane.addTab("Topics", topicsPanel);
+
+        workerMessageTextLabel.setText("Message text");
+
+        workerSendButton.setText("Send");
+        workerSendButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                workerSendButtonActionPerformed(evt);
+            }
+        });
+
+        workerTimeSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 30, 1));
+
+        workerTimeLabel.setText("Simulate # seconds of work");
+
+        workerInfoLabel.setText("<html>Messages sent here will be inserted into the <br>'task_queue' queue and be processed by 2 parallel<br>worker queues, both with prefetch(1)-setting.</html>");
+
+        javax.swing.GroupLayout workerPanelLayout = new javax.swing.GroupLayout(workerPanel);
+        workerPanel.setLayout(workerPanelLayout);
+        workerPanelLayout.setHorizontalGroup(
+            workerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(workerPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(workerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(workerPanelLayout.createSequentialGroup()
+                        .addComponent(workerMessageTextLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(workerMessageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(workerPanelLayout.createSequentialGroup()
+                        .addComponent(workerTimeSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(workerSendButton))
+                    .addGroup(workerPanelLayout.createSequentialGroup()
+                        .addGroup(workerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(workerTimeLabel)
+                            .addComponent(workerInfoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        workerPanelLayout.setVerticalGroup(
+            workerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(workerPanelLayout.createSequentialGroup()
+                .addComponent(workerInfoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addGroup(workerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(workerMessageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(workerMessageTextLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
+                .addComponent(workerTimeLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(workerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(workerTimeSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(workerSendButton))
+                .addGap(5, 5, 5))
+        );
+
+        mainTabPane.addTab("Worker", workerPanel);
 
         javax.swing.GroupLayout statusPanelLayout = new javax.swing.GroupLayout(statusPanel);
         statusPanel.setLayout(statusPanelLayout);
@@ -338,7 +409,8 @@ public class MainFrame extends javax.swing.JFrame {
                 setStatusLabelErrorMessage("Password is empty");
                 return;
             }
-            Main.brokerConnection = new BrokerConnection(hostname, vhostName, username, password);
+            Main.brokerConnection = 
+                    new BrokerConnection(hostname, vhostName, username, password);
             setStatusLabelText("Broker connection configured");
         }
     }//GEN-LAST:event_saveSettingsButtonActionPerformed
@@ -350,7 +422,8 @@ public class MainFrame extends javax.swing.JFrame {
             amount = (int) this.smokeTestFloodSpinner.getValue();
             boolean bulkReturn = false;
             try {
-                SmokeTest smokeTest = new SmokeTest(Main.brokerConnection, queueName);
+                SmokeTest smokeTest = 
+                        new SmokeTest(Main.brokerConnection, queueName);
                 bulkReturn = smokeTest.sendBulkMessages(amount);
             } catch (Exception ex) {
                 setStatusLabelErrorMessage(ex.getMessage());
@@ -376,10 +449,26 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_topicSendButtonActionPerformed
 
+    private void workerSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workerSendButtonActionPerformed
+        if (evt.getActionCommand().equals("Send")) {
+            String workerMessage = this.workerMessageTextField.getText();
+            String workTime = String.valueOf(this.workerTimeSpinner.getValue());
+            try {
+            Worker worker = 
+                    new Worker(Main.brokerConnection, workerMessage, workTime);
+            String returnMessage = worker.sendWorkerMessage();
+            setStatusLabelText(returnMessage);
+            } catch (Exception ex) {
+                setStatusLabelErrorMessage(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_workerSendButtonActionPerformed
+
     private void setStatusLabelErrorMessage(String errorMessage) {
         this.statusLabel.setForeground(Color.red);
         String truncatedError;
-        truncatedError = errorMessage.substring(0, Math.min(errorMessage.length(), 50));
+        truncatedError = 
+                errorMessage.substring(0, Math.min(errorMessage.length(), 50));
         if (errorMessage.length() > 50) {
             this.statusLabel.setText(truncatedError + "...");
         } else {
@@ -403,6 +492,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton smokeTestFloodButton;
     private javax.swing.JLabel smokeTestFloodLabel;
     private javax.swing.JSpinner smokeTestFloodSpinner;
+    private javax.swing.JLabel smokeTestHintLabel;
     private javax.swing.JLabel smokeTestMessageTextLabel;
     private javax.swing.JTextField smokeTestMessageTextTextField;
     private javax.swing.JPanel smokeTestPanel;
@@ -423,5 +513,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField usernameTextField;
     private javax.swing.JLabel vHostNameLabel;
     private javax.swing.JTextField vHostNameTextField;
+    private javax.swing.JLabel workerInfoLabel;
+    private javax.swing.JTextField workerMessageTextField;
+    private javax.swing.JLabel workerMessageTextLabel;
+    private javax.swing.JPanel workerPanel;
+    private javax.swing.JButton workerSendButton;
+    private javax.swing.JLabel workerTimeLabel;
+    private javax.swing.JSpinner workerTimeSpinner;
     // End of variables declaration//GEN-END:variables
 }

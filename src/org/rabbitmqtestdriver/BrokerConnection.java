@@ -1,5 +1,6 @@
 package org.rabbitmqtestdriver;
 
+import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -54,6 +55,32 @@ public class BrokerConnection {
         factory.setUsername(username);
         factory.setPassword(String.valueOf(password));
     }
+    
+    public String sendWorkerMessage(String message, String workTime) 
+            throws Exception {
+        Channel channel = openWorkerConnection();
+        // Insert workTime-info as message "type" property.
+        // deliveryMode(2) = persistent
+        try {
+            // (java.lang.String exchange, java.lang.String routingKey, 
+            // AMQP.BasicProperties props, byte[] body)
+            channel.basicPublish("", "task_queue",
+                    new AMQP.BasicProperties.Builder()
+                       .contentType("text/plain").deliveryMode(2)
+                       .type(workTime)
+                       .build(), 
+                    message.getBytes());
+        } catch (Exception e) {
+            if (e.getMessage() != null) {
+                throw e;
+            }
+        }
+        if (channel != null) {
+            channel.close();
+            connection.close();
+        }
+        return ("Sent '" + message + "' with delay: " + workTime);
+    }
 
     public String sendSingleSmokeTestMessage(String queueName,
             String message) throws Exception {
@@ -75,7 +102,8 @@ public class BrokerConnection {
         return ("Sent '" + message + "'");
     }
 
-    public boolean sendBulkSmokeTestMessages(String queueName, int amount) throws Exception {
+    public boolean sendBulkSmokeTestMessages(String queueName, int amount) 
+            throws Exception {
         if (queueName == null || queueName.equals("")) {
             throw new IllegalArgumentException("No queue name set");
         }
@@ -112,7 +140,8 @@ public class BrokerConnection {
             throw new IllegalArgumentException("Topic namespace is empty");
         } else {
             try {
-                channel.basicPublish("log", topicNamespace, null, topicMessage.getBytes());
+                channel.basicPublish("log", topicNamespace, null, 
+                        topicMessage.getBytes());
             } catch (Exception e) {
                 if (e.getMessage() != null) {
                     throw e;
@@ -141,7 +170,8 @@ public class BrokerConnection {
         return channel;
     }
 
-    private Channel openSmokeTestConnection(String queueName) throws Exception {
+    private Channel openSmokeTestConnection(String queueName) 
+            throws Exception {
         Channel channel = null;
         try {
             channel = createChannel();
@@ -151,7 +181,29 @@ public class BrokerConnection {
             }
         }
         try {
+            // (java.lang.String queue, boolean durable, boolean exclusive, 
+            // boolean autoDelete, 
+            // java.util.Map<java.lang.String,java.lang.Object> arguments)
             channel.queueDeclare(queueName, false, false, false, null);
+        } catch (Exception e) {
+            if (e.getMessage() != null) {
+                throw e;
+            }
+        }
+        return channel;
+    }
+    
+    private Channel openWorkerConnection() throws Exception {
+        Channel channel = null;
+        try {
+            channel = createChannel();
+        } catch (Exception e) {
+            if (e.getMessage() != null) {
+                throw e;
+            }
+        }
+        try {
+            channel.queueDeclare("task_queue", true, false, false, null);
         } catch (Exception e) {
             if (e.getMessage() != null) {
                 throw e;

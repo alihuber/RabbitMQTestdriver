@@ -8,22 +8,22 @@ public class SmokeTest {
 
     public SmokeTest(BrokerConnection connection, String queueName,
             String message) {
-        if(connection == null) {
+        if (connection == null) {
             throw new IllegalArgumentException("No connection set");
         }
         this.connection = connection;
         this.queueName = queueName;
         this.message = message;
     }
-    
+
     public SmokeTest(BrokerConnection connection, String queueName) {
-        if(connection == null) {
+        if (connection == null) {
             throw new IllegalArgumentException("No connection set");
         }
         this.connection = connection;
         this.queueName = queueName;
     }
-    
+
     public boolean sendBulkMessages(int amount) throws Exception {
         try {
             return this.connection.sendBulkSmokeTestMessages(this.queueName,

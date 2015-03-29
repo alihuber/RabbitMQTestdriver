@@ -1,22 +1,21 @@
 package org.rabbitmqtestdriver;
 
-
 public class Topic {
-    
+
     private final BrokerConnection connection;
     private String topicNamespace;
     private String topicMessage;
 
     public Topic(BrokerConnection connection, String topicNamespace,
             String topicMessage) {
-        if(connection == null) {
+        if (connection == null) {
             throw new IllegalArgumentException("No connection set");
         }
         this.connection = connection;
         this.topicNamespace = topicNamespace;
         this.topicMessage = topicMessage;
     }
-    
+
     public String sendTopicMessage() throws Exception {
         String returnMessage = null;
         try {
@@ -28,5 +27,5 @@ public class Topic {
             }
         }
         return returnMessage;
-    }   
+    }
 }

@@ -44,7 +44,7 @@ public class MainFrame extends javax.swing.JFrame {
         smokeTestHintLabel = new javax.swing.JLabel();
         topicsPanel = new javax.swing.JPanel();
         topicNamespaceTextField = new javax.swing.JTextField();
-        topicInfoLabel = new javax.swing.JLabel();
+        topicHintLabel = new javax.swing.JLabel();
         topicSendButton = new javax.swing.JButton();
         topicNamespaceLabel = new javax.swing.JLabel();
         topicMessageTextField = new javax.swing.JTextField();
@@ -55,7 +55,16 @@ public class MainFrame extends javax.swing.JFrame {
         workerSendButton = new javax.swing.JButton();
         workerTimeSpinner = new javax.swing.JSpinner();
         workerTimeLabel = new javax.swing.JLabel();
-        workerInfoLabel = new javax.swing.JLabel();
+        workerHintLabel = new javax.swing.JLabel();
+        workflowPanel = new javax.swing.JPanel();
+        workflowMessageTextLabel = new javax.swing.JLabel();
+        workflowMessageTextField = new javax.swing.JTextField();
+        workflowHintLabel = new javax.swing.JLabel();
+        workflowSingleLabel = new javax.swing.JLabel();
+        workflowSendButton = new javax.swing.JButton();
+        workflowFloodLabel = new javax.swing.JLabel();
+        workflowFloodSpinner = new javax.swing.JSpinner();
+        workflowFloodButton = new javax.swing.JButton();
         statusPanel = new javax.swing.JPanel();
         statusLabel = new javax.swing.JLabel();
 
@@ -223,7 +232,7 @@ public class MainFrame extends javax.swing.JFrame {
         topicsPanel.setBounds(new java.awt.Rectangle(0, 0, 361, 399));
         topicsPanel.setPreferredSize(new java.awt.Dimension(361, 399));
 
-        topicInfoLabel.setText("<html>Messages can be in the following namespaces:<br>debug.*<br>*.info<br>logger.#<br>and will be inserted into topic exchange 'log'.<br>Messages for other namespaces will be lost.</html>");
+        topicHintLabel.setText("<html>Messages can be in the following namespaces:<br>debug.*<br>*.info<br>logger.#<br>and will be inserted into topic exchange 'log'.<br>Messages for other namespaces will be lost.</html>");
 
         topicSendButton.setText("Send");
         topicSendButton.addActionListener(new java.awt.event.ActionListener() {
@@ -252,7 +261,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(topicNamespaceTextField)
                             .addComponent(topicMessageTextField)))
                     .addGroup(topicsPanelLayout.createSequentialGroup()
-                        .addComponent(topicInfoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(topicHintLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, topicsPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -263,7 +272,7 @@ public class MainFrame extends javax.swing.JFrame {
             topicsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(topicsPanelLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(topicInfoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(topicHintLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(topicsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(topicNamespaceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -292,7 +301,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         workerTimeLabel.setText("Simulate # seconds of work");
 
-        workerInfoLabel.setText("<html>Messages sent here will be inserted into the <br>'task_queue' queue and be processed by 2 parallel<br>worker queues, both with prefetch(1)-setting.</html>");
+        workerHintLabel.setText("<html>Messages sent here will be inserted into the <br>'task_queue' queue and be processed by 2 parallel<br>worker queues, both with prefetch(1)-setting.</html>");
 
         javax.swing.GroupLayout workerPanelLayout = new javax.swing.GroupLayout(workerPanel);
         workerPanel.setLayout(workerPanelLayout);
@@ -312,14 +321,14 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(workerPanelLayout.createSequentialGroup()
                         .addGroup(workerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(workerTimeLabel)
-                            .addComponent(workerInfoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(workerHintLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         workerPanelLayout.setVerticalGroup(
             workerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(workerPanelLayout.createSequentialGroup()
-                .addComponent(workerInfoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(workerHintLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(workerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(workerMessageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -334,6 +343,78 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         mainTabPane.addTab("Worker", workerPanel);
+
+        workflowMessageTextLabel.setText("Message text");
+
+        workflowHintLabel.setText("<html>Workflow scenario using sneakers.io:<br>Messages will be processed by 2 interdependent<br>background workers using 2 different queues<br> and their accompanying error handling queues.<br> Messages will fail, work for a few seconds<br> and be re-enqueued randomly.</html>");
+
+        workflowSingleLabel.setText("Send single message");
+
+        workflowSendButton.setText("Send");
+        workflowSendButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                workflowSendButtonActionPerformed(evt);
+            }
+        });
+
+        workflowFloodLabel.setText("Send # random messages");
+
+        workflowFloodSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
+
+        workflowFloodButton.setText("Flood");
+        workflowFloodButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                workflowFloodButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout workflowPanelLayout = new javax.swing.GroupLayout(workflowPanel);
+        workflowPanel.setLayout(workflowPanelLayout);
+        workflowPanelLayout.setHorizontalGroup(
+            workflowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(workflowPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(workflowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(workflowPanelLayout.createSequentialGroup()
+                        .addComponent(workflowMessageTextLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(workflowMessageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(workflowPanelLayout.createSequentialGroup()
+                        .addComponent(workflowHintLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, workflowPanelLayout.createSequentialGroup()
+                        .addComponent(workflowSendButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(workflowFloodSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(workflowFloodButton))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, workflowPanelLayout.createSequentialGroup()
+                        .addComponent(workflowSingleLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(workflowFloodLabel)))
+                .addContainerGap())
+        );
+        workflowPanelLayout.setVerticalGroup(
+            workflowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(workflowPanelLayout.createSequentialGroup()
+                .addComponent(workflowHintLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addGroup(workflowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(workflowMessageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(workflowMessageTextLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
+                .addGroup(workflowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(workflowFloodLabel)
+                    .addComponent(workflowSingleLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(workflowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(workflowFloodButton)
+                    .addComponent(workflowFloodSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(workflowSendButton))
+                .addContainerGap())
+        );
+
+        mainTabPane.addTab("Workflow", workflowPanel);
 
         javax.swing.GroupLayout statusPanelLayout = new javax.swing.GroupLayout(statusPanel);
         statusPanel.setLayout(statusPanelLayout);
@@ -389,28 +470,28 @@ public class MainFrame extends javax.swing.JFrame {
     private void saveSettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveSettingsButtonActionPerformed
         if (evt.getActionCommand().equals("Save")) {
             String hostname = this.ipAddressTextField.getText();
-            if(hostname.isEmpty()) {
+            if (hostname.isEmpty()) {
                 setStatusLabelErrorMessage("Broker address is empty");
                 return;
             }
             String vhostName = this.vHostNameTextField.getText();
-            if(vhostName.isEmpty()) {
+            if (vhostName.isEmpty()) {
                 setStatusLabelErrorMessage("Virtual host name is empty");
                 return;
             }
             String username = this.usernameTextField.getText();
-            if(username.isEmpty()) {
+            if (username.isEmpty()) {
                 setStatusLabelErrorMessage("Username is empty");
                 return;
             }
             char[] password;
             password = this.passwordTextField.getPassword();
-            if(String.valueOf(password).isEmpty()) {
+            if (String.valueOf(password).isEmpty()) {
                 setStatusLabelErrorMessage("Password is empty");
                 return;
             }
-            Main.brokerConnection = 
-                    new BrokerConnection(hostname, vhostName, username, password);
+            Main.brokerConnection
+                    = new BrokerConnection(hostname, vhostName, username, password);
             setStatusLabelText("Broker connection configured");
         }
     }//GEN-LAST:event_saveSettingsButtonActionPerformed
@@ -422,8 +503,8 @@ public class MainFrame extends javax.swing.JFrame {
             amount = (int) this.smokeTestFloodSpinner.getValue();
             boolean bulkReturn = false;
             try {
-                SmokeTest smokeTest = 
-                        new SmokeTest(Main.brokerConnection, queueName);
+                SmokeTest smokeTest
+                        = new SmokeTest(Main.brokerConnection, queueName);
                 bulkReturn = smokeTest.sendBulkMessages(amount);
             } catch (Exception ex) {
                 setStatusLabelErrorMessage(ex.getMessage());
@@ -440,7 +521,7 @@ public class MainFrame extends javax.swing.JFrame {
             String topicMessage = this.topicMessageTextField.getText();
             try {
                 Topic topic = new Topic(Main.brokerConnection, topicNamespace,
-                    topicMessage);
+                        topicMessage);
                 String returnMessage = topic.sendTopicMessage();
                 setStatusLabelText(returnMessage);
             } catch (Exception ex) {
@@ -454,28 +535,60 @@ public class MainFrame extends javax.swing.JFrame {
             String workerMessage = this.workerMessageTextField.getText();
             String workTime = String.valueOf(this.workerTimeSpinner.getValue());
             try {
-            Worker worker = 
-                    new Worker(Main.brokerConnection, workerMessage, workTime);
-            String returnMessage = worker.sendWorkerMessage();
-            setStatusLabelText(returnMessage);
+                Worker worker
+                        = new Worker(Main.brokerConnection, workerMessage, workTime);
+                String returnMessage = worker.sendWorkerMessage();
+                setStatusLabelText(returnMessage);
             } catch (Exception ex) {
                 setStatusLabelErrorMessage(ex.getMessage());
             }
         }
     }//GEN-LAST:event_workerSendButtonActionPerformed
 
+    private void workflowSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workflowSendButtonActionPerformed
+        if (evt.getActionCommand().equals("Send")) {
+            String workflowMessage = this.workflowMessageTextField.getText();
+            try {
+                Workflow workflow
+                        = new Workflow(Main.brokerConnection, workflowMessage);
+                String returnMessage = workflow.sendWorkflowMessage();
+                setStatusLabelText(returnMessage);
+            } catch (Exception ex) {
+                setStatusLabelErrorMessage(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_workflowSendButtonActionPerformed
+
+    private void workflowFloodButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workflowFloodButtonActionPerformed
+        if (evt.getActionCommand().equals("Flood")) {
+            int amount;
+            amount = (int) this.workflowFloodSpinner.getValue();
+            boolean bulkReturn = false;
+            try {
+                Workflow workflow
+                        = new Workflow(Main.brokerConnection);
+                bulkReturn = workflow.sendBulkMessages(amount);
+            } catch (Exception ex) {
+                setStatusLabelErrorMessage(ex.getMessage());
+            }
+            if (bulkReturn) {
+                setStatusLabelText("Done sending messages");
+            }
+        }
+    }//GEN-LAST:event_workflowFloodButtonActionPerformed
+
     private void setStatusLabelErrorMessage(String errorMessage) {
         this.statusLabel.setForeground(Color.red);
         String truncatedError;
-        truncatedError = 
-                errorMessage.substring(0, Math.min(errorMessage.length(), 50));
+        truncatedError
+                = errorMessage.substring(0, Math.min(errorMessage.length(), 50));
         if (errorMessage.length() > 50) {
             this.statusLabel.setText(truncatedError + "...");
         } else {
             this.statusLabel.setText(errorMessage);
         }
     }
-    
+
     private void setStatusLabelText(String message) {
         this.statusLabel.setForeground(Color.black);
         this.statusLabel.setText(message);
@@ -502,7 +615,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel smokeTestSingleLabel;
     private javax.swing.JLabel statusLabel;
     private javax.swing.JPanel statusPanel;
-    private javax.swing.JLabel topicInfoLabel;
+    private javax.swing.JLabel topicHintLabel;
     private javax.swing.JLabel topicMessageLabel;
     private javax.swing.JTextField topicMessageTextField;
     private javax.swing.JLabel topicNamespaceLabel;
@@ -513,12 +626,21 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField usernameTextField;
     private javax.swing.JLabel vHostNameLabel;
     private javax.swing.JTextField vHostNameTextField;
-    private javax.swing.JLabel workerInfoLabel;
+    private javax.swing.JLabel workerHintLabel;
     private javax.swing.JTextField workerMessageTextField;
     private javax.swing.JLabel workerMessageTextLabel;
     private javax.swing.JPanel workerPanel;
     private javax.swing.JButton workerSendButton;
     private javax.swing.JLabel workerTimeLabel;
     private javax.swing.JSpinner workerTimeSpinner;
+    private javax.swing.JButton workflowFloodButton;
+    private javax.swing.JLabel workflowFloodLabel;
+    private javax.swing.JSpinner workflowFloodSpinner;
+    private javax.swing.JLabel workflowHintLabel;
+    private javax.swing.JTextField workflowMessageTextField;
+    private javax.swing.JLabel workflowMessageTextLabel;
+    private javax.swing.JPanel workflowPanel;
+    private javax.swing.JButton workflowSendButton;
+    private javax.swing.JLabel workflowSingleLabel;
     // End of variables declaration//GEN-END:variables
 }

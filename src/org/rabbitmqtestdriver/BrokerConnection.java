@@ -55,8 +55,8 @@ public class BrokerConnection {
         factory.setUsername(username);
         factory.setPassword(String.valueOf(password));
     }
-    
-    public String sendWorkerMessage(String message, String workTime) 
+
+    public String sendWorkerMessage(String message, String workTime)
             throws Exception {
         Channel channel = openWorkerConnection();
         // Insert workTime-info as message "type" property.
@@ -66,9 +66,9 @@ public class BrokerConnection {
             // AMQP.BasicProperties props, byte[] body)
             channel.basicPublish("", "task_queue",
                     new AMQP.BasicProperties.Builder()
-                       .contentType("text/plain").deliveryMode(2)
-                       .type(workTime)
-                       .build(), 
+                    .contentType("text/plain").deliveryMode(2)
+                    .type(workTime)
+                    .build(),
                     message.getBytes());
         } catch (Exception e) {
             if (e.getMessage() != null) {
@@ -80,6 +80,30 @@ public class BrokerConnection {
             connection.close();
         }
         return ("Sent '" + message + "' with delay: " + workTime);
+    }
+
+    public String sendSingleWorkflowMessage(String message)
+            throws Exception {
+        Channel channel = openWorkflowConnection();
+        // deliveryMode(2) = persistent
+        try {
+            // (java.lang.String exchange, java.lang.String routingKey, 
+            // AMQP.BasicProperties props, byte[] body)
+            channel.basicPublish("sneakers", "workflow_in",
+                    new AMQP.BasicProperties.Builder()
+                    .contentType("text/plain").deliveryMode(2)
+                    .build(),
+                    message.getBytes());
+        } catch (Exception e) {
+            if (e.getMessage() != null) {
+                throw e;
+            }
+        }
+        if (channel != null) {
+            channel.close();
+            connection.close();
+        }
+        return ("Sent '" + message + "'");
     }
 
     public String sendSingleSmokeTestMessage(String queueName,
@@ -102,7 +126,7 @@ public class BrokerConnection {
         return ("Sent '" + message + "'");
     }
 
-    public boolean sendBulkSmokeTestMessages(String queueName, int amount) 
+    public boolean sendBulkSmokeTestMessages(String queueName, int amount)
             throws Exception {
         if (queueName == null || queueName.equals("")) {
             throw new IllegalArgumentException("No queue name set");
@@ -126,6 +150,30 @@ public class BrokerConnection {
         return true;
     }
 
+    public boolean sendBulkWorkflowMessages(int amount) throws Exception {
+        Channel channel = openWorkflowConnection();
+        for (int i = 0; i < amount; i++) {
+            RandomString random = new RandomString(20);
+            String message = random.nextString() + "_" + String.valueOf(i);
+            try {
+                channel.basicPublish("sneakers", "workflow_in",
+                        new AMQP.BasicProperties.Builder()
+                        .contentType("text/plain").deliveryMode(2)
+                        .build(),
+                        message.getBytes());
+            } catch (Exception e) {
+                if (e.getMessage() != null) {
+                    throw e;
+                }
+            }
+        }
+        if (channel != null) {
+            channel.close();
+            connection.close();
+        }
+        return true;
+    }
+
     public String sendTopicMessage(String topicNamespace,
             String topicMessage) throws Exception {
         Channel channel = null;
@@ -136,11 +184,11 @@ public class BrokerConnection {
                 throw e;
             }
         }
-        if(topicNamespace == null || topicNamespace.isEmpty()) {
+        if (topicNamespace == null || topicNamespace.isEmpty()) {
             throw new IllegalArgumentException("Topic namespace is empty");
         } else {
             try {
-                channel.basicPublish("log", topicNamespace, null, 
+                channel.basicPublish("log", topicNamespace, null,
                         topicMessage.getBytes());
             } catch (Exception e) {
                 if (e.getMessage() != null) {
@@ -170,7 +218,7 @@ public class BrokerConnection {
         return channel;
     }
 
-    private Channel openSmokeTestConnection(String queueName) 
+    private Channel openSmokeTestConnection(String queueName)
             throws Exception {
         Channel channel = null;
         try {
@@ -192,7 +240,7 @@ public class BrokerConnection {
         }
         return channel;
     }
-    
+
     private Channel openWorkerConnection() throws Exception {
         Channel channel = null;
         try {
@@ -209,6 +257,19 @@ public class BrokerConnection {
                 throw e;
             }
         }
+        return channel;
+    }
+
+    private Channel openWorkflowConnection() throws Exception {
+        Channel channel = null;
+        try {
+            channel = createChannel();
+        } catch (Exception e) {
+            if (e.getMessage() != null) {
+                throw e;
+            }
+        }
+        // no re-declaring of durable workflow_in-channel for sneakers.io
         return channel;
     }
 

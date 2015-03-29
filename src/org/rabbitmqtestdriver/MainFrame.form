@@ -347,7 +347,7 @@
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="topicInfoLabel" min="-2" max="-2" attributes="0"/>
+                              <Component id="topicHintLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
@@ -363,7 +363,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="topicInfoLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="topicHintLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="topicNamespaceLabel" alignment="3" max="32767" attributes="0"/>
@@ -384,7 +384,7 @@
           <SubComponents>
             <Component class="javax.swing.JTextField" name="topicNamespaceTextField">
             </Component>
-            <Component class="javax.swing.JLabel" name="topicInfoLabel">
+            <Component class="javax.swing.JLabel" name="topicHintLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&lt;html&gt;Messages can be in the following namespaces:&lt;br&gt;debug.*&lt;br&gt;*.info&lt;br&gt;logger.#&lt;br&gt;and will be inserted into topic exchange &apos;log&apos;.&lt;br&gt;Messages for other namespaces will be lost.&lt;/html&gt;"/>
               </Properties>
@@ -439,7 +439,7 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="workerTimeLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="workerInfoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="workerHintLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -451,7 +451,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="workerInfoLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="workerHintLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="workerMessageTextField" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -497,10 +497,124 @@
                 <Property name="text" type="java.lang.String" value="Simulate # seconds of work"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="workerInfoLabel">
+            <Component class="javax.swing.JLabel" name="workerHintLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&lt;html&gt;Messages sent here will be inserted into the &lt;br&gt;&apos;task_queue&apos; queue and be processed by 2 parallel&lt;br&gt;worker queues, both with prefetch(1)-setting.&lt;/html&gt;"/>
               </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="workflowPanel">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Workflow">
+                <Property name="tabTitle" type="java.lang.String" value="Workflow"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="workflowMessageTextLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="workflowMessageTextField" min="-2" pref="230" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="workflowHintLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="workflowSendButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="workflowFloodSpinner" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="workflowFloodButton" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="workflowSingleLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="workflowFloodLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="workflowHintLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="workflowMessageTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="workflowMessageTextLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="143" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="workflowFloodLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="workflowSingleLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="workflowFloodButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="workflowFloodSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="workflowSendButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="workflowMessageTextLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Message text"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="workflowMessageTextField">
+            </Component>
+            <Component class="javax.swing.JLabel" name="workflowHintLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;Workflow scenario using sneakers.io:&lt;br&gt;Messages will be processed by 2 interdependent&lt;br&gt;background workers using 2 different queues&lt;br&gt; and their accompanying error handling queues.&lt;br&gt; Messages will fail, work for a few seconds&lt;br&gt; and be re-enqueued randomly.&lt;/html&gt;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="workflowSingleLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Send single message"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="workflowSendButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Send"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="workflowSendButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="workflowFloodLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Send # random messages"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JSpinner" name="workflowFloodSpinner">
+              <Properties>
+                <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+                  <SpinnerModel initial="1" maximum="100" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="workflowFloodButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Flood"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="workflowFloodButtonActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

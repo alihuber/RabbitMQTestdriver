@@ -26,7 +26,8 @@ public class SmokeTest {
     
     public boolean sendBulkMessages(int amount) throws Exception {
         try {
-            return this.connection.sendBulkSmokeTestMessages(this.queueName, amount);
+            return this.connection.sendBulkSmokeTestMessages(this.queueName,
+                    amount);
         } catch (Exception e) {
             if (e.getMessage() != null) {
                 throw e;

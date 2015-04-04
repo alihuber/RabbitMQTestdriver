@@ -85,10 +85,7 @@ public class BrokerConnection {
     public String sendSingleWorkflowMessage(String message)
             throws Exception {
         Channel channel = openWorkflowConnection();
-        // deliveryMode(2) = persistent
         try {
-            // (java.lang.String exchange, java.lang.String routingKey, 
-            // AMQP.BasicProperties props, byte[] body)
             channel.basicPublish("sneakers", "workflow_in",
                     new AMQP.BasicProperties.Builder()
                     .contentType("text/plain").deliveryMode(2)
@@ -209,6 +206,7 @@ public class BrokerConnection {
             }
         }
         try {
+//          exchangeDeclare(java.lang.String exchange, java.lang.String type)
             channel.exchangeDeclare("log", "topic");
         } catch (Exception e) {
             if (e.getMessage() != null) {
